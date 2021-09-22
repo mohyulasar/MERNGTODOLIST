@@ -41,16 +41,24 @@ module.exports = {
         },
         async register(
             _,
-            { registerInput: { username, email, password, confirmPassword } }, context, info) {
-            const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword);
-            const user = await User.findOne({ username });
-            if (!valid) {
-                throw new UserInputError('Errors', { errors })
+            {
+                registerInput: { username, email, password, confirmPassword }
             }
+        ) {
+            const { valid, errors } = validateRegisterInput(
+                username,
+                email,
+                password,
+                confirmPassword
+            );
+            if (!valid) {
+                throw new UserInputError('Errors', { errors });
+            }
+            const user = await User.findOne({ username });
             if (user) {
-                throw new UserInputError('username is already taken', {
+                throw new UserInputError('Username is taken', {
                     errors: {
-                        username: "this username is taken"
+                        username: 'This username is taken'
                     }
                 })
             }

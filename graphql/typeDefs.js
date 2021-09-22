@@ -20,6 +20,13 @@ input InputTodo {
   body: String!
   isCompleted: String!
 }
+input UpdateTodoInput {
+  id: ID!
+  body: String!
+  createdAt: String!
+  username: String!
+  isCompleted: String!
+}
 input RegisterInput{
     username: String!
     password: String!
@@ -39,6 +46,6 @@ type Mutation{
     login(username: String!, password: String!): User!
     createTodo(body:String!): Todo!
     deleteTodo(todoId: ID!): String!
-    updateTodo(todoId: ID!, updatedTodo: InputTodo!): Todo!
+    updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
 }
 `;
